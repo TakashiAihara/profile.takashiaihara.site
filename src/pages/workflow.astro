@@ -1,0 +1,94 @@
+---
+import Layout from "../layouts/BlogPost.astro";
+---
+
+<Layout
+  title="How I Develop"
+  description="TakashiAihara's development workflow with parallel AI coding agents"
+  pubDate={new Date("October 15 2026")}
+>
+  <p>
+    I run many Claude Code sessions in parallel and keep myself in the loop only
+    where a human decision matters. Most of the workflow below is backed by
+    tools I built and publish on GitHub.
+  </p>
+
+  <h2>One session, one scope</h2>
+  <ul>
+    <li>Each agent session owns exactly one task and works in its own clone of the repository.</li>
+    <li>
+      Clones are created by <a href="https://github.com/TakashiAihara/ccx">ccx</a>
+      as fully independent copies in under a second, so several sessions can
+      check out the same branch without git worktrees.
+    </li>
+    <li>
+      Every session is attached to a task on a self-hosted
+      <a href="https://kaneo.app">Kaneo</a> board through
+      <a href="https://github.com/TakashiAihara/kaneo-cli">kaneo-cli</a>, so I
+      can see which session is working on what, and the next step is recorded
+      before a session leaves.
+    </li>
+  </ul>
+
+  <h2>Humans decide, agents keep moving</h2>
+  <ul>
+    <li>Reversible choices are made by the agent and reported afterwards.</li>
+    <li>Irreversible or outward-facing actions wait for my explicit approval.</li>
+    <li>
+      When a decision is needed, the agent queues it in a markdown file and keeps
+      working on whatever does not depend on it. I answer with line comments in
+      <a href="https://github.com/TakashiAihara/akapen">akapen</a>, which feeds
+      the comments back to the session.
+    </li>
+    <li>
+      Design discussions also happen in markdown reviewed line by line, not in a
+      scrolling chat.
+    </li>
+  </ul>
+
+  <h2>Rules as code</h2>
+  <ul>
+    <li>
+      Agent behavior lives in a versioned repository: global instructions,
+      task-specific skills, hooks that block known mistakes, and small CLIs.
+    </li>
+    <li>Changes to those rules go through pull requests like any other code.</li>
+    <li>
+      After each scope, the session runs a retrospective and turns what went
+      wrong into a rule, a skill or a tool, so the same mistake is not repeated.
+    </li>
+  </ul>
+
+  <h2>Review and verification</h2>
+  <ul>
+    <li>
+      Every pull request gets an adversarial review by a dedicated agent playing
+      the strictest human reviewer, plus independent reviews from other model
+      families and CodeRabbit.
+    </li>
+    <li>
+      Tests are checked with negative controls: the implementation is
+      deliberately broken to confirm the test actually fails.
+    </li>
+    <li>
+      When acceptance tests can be written first, implementation is delegated to
+      a smaller model, while the main agent keeps the spec, the tests and the
+      acceptance check.
+    </li>
+    <li>"Done" means the effect was observed, not that the code ran.</li>
+  </ul>
+
+  <h2>Everything leaves a record</h2>
+  <ul>
+    <li>
+      Investigations, setups and abandoned attempts all end as a markdown note
+      merged into a knowledge repository.
+    </li>
+    <li>
+      Session history is searchable with
+      <a href="https://github.com/TakashiAihara/cchist">cchist</a>, and commits
+      and pull requests carry a session id so any change can be traced back to
+      the conversation that produced it.
+    </li>
+  </ul>
+</Layout>
