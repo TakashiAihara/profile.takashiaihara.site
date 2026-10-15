@@ -7,7 +7,9 @@ import Header from "../components/Header.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+// markdown pages pass their frontmatter as Astro.props.frontmatter
+const { title, description, pubDate, updatedDate, heroImage } =
+  Astro.props.frontmatter ?? Astro.props;
 ---
 
 <html lang="ja">
