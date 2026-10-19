@@ -4,7 +4,7 @@
 // Site Core Information
 export const SITE_TITLE = "Takashi Aihara - Profile";
 export const SITE_DESCRIPTION =
-  "Full-stack engineer crossing infrastructure, backend, and frontend. AI-first development, IaC, and 60+ niche tech posts on Zenn.";
+  "Full-stack engineer crossing infrastructure, backend, and frontend. AI-first development, IaC, and 50+ niche tech posts on Zenn.";
 export const SITE_REPOSITORY_URL =
   "https://github.com/TakashiAihara/profile.takashiaihara.site";
 export const ASTRO_REPOSITORY_URL = "https://github.com/withastro/astro";
@@ -123,7 +123,7 @@ export const BIO_SUMMARY_SETTINGS = [
     emoji: "⚙️",
   },
   {
-    content: "I share niche tech notes on Zenn (60+ posts)",
+    content: "I share niche tech notes on Zenn (50+ posts)",
     emoji: "📝",
   },
   {
