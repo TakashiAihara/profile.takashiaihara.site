@@ -10,6 +10,8 @@ I run many Claude Code sessions in parallel and keep myself in the loop only whe
 
 ## The flow of one task
 
+A task starts from my request, goes through a plan, decisions and implementation by Claude Code, is reviewed by AI agents and then by me, and ends with a retrospective that feeds new rules and follow-up tasks back into the loop.
+
 <pre class="mermaid">
 flowchart TD
   req([Me, with a request]) --> task[Task on Kaneo board]
@@ -22,9 +24,9 @@ flowchart TD
   queue -->|decided| work
   work -->|new decision| queue
   me -->|question| qa[Q&A document in markdown]
-  qa -->|answer, line comments via MCP channel| me
+  qa <-->|answers / line comments via MCP channel| me
   work -.->|approval for irreversible actions| me
-  work --> verify[Verify: break the code on purpose, observe the effect]
+  work --> verify[Verify: tests must fail when the code is broken; observe the real effect]
   verify --> pr[Pull request]
   pr --> review[Adversarial review by Claude Fable]
   pr --> ext[External reviews: Antigravity, Copilot, Codex, CodeRabbit]
@@ -47,7 +49,7 @@ flowchart TD
   class rules store
 </pre>
 
-<p><span style="background:#dbeafe;border:1px solid #1d4ed8;padding:0 0.4em">blue</span> is me, <span style="background:#fde2c4;border:1px solid #c2410c;padding:0 0.4em">orange</span> is Claude Code, <span style="background:#dcfce7;border:1px solid #15803d;padding:0 0.4em">green</span> is other AI agents, <span style="background:#f3f4f6;border:1px solid #6b7280;padding:0 0.4em">gray</span> is a repository.</p>
+<p><span style="background:#dbeafe;border:1px solid #1d4ed8;padding:0 0.4em">blue</span> is me, <span style="background:#fde2c4;border:1px solid #c2410c;padding:0 0.4em">orange</span> is Claude (Claude Code and its subagents), <span style="background:#dcfce7;border:1px solid #15803d;padding:0 0.4em">green</span> is other AI agents, <span style="background:#f3f4f6;border:1px solid #6b7280;padding:0 0.4em">gray</span> is a repository.</p>
 
 ## One session, one scope
 
