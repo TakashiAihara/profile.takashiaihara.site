@@ -23,20 +23,24 @@ flowchart TD
   me -->|question| qa[Q&A document in markdown]
   qa -->|answer, line comments via MCP channel| me
   work --> pr[Pull request]
-  pr --> review[Adversarial + external reviews]
+  pr --> review[Adversarial review]
+  pr --> ext[External reviews: Antigravity, Copilot, Codex, CodeRabbit]
   review --> merge[Merge]
+  ext --> merge
   merge --> retro[Retrospective]
   retro -->|new rule / skill / tool| rules[(Rules repository)]
   rules -.-> work
-  classDef human fill:#fde2c4,stroke:#c2410c,color:#7c2d12
-  classDef agent fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a
+  classDef human fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a
+  classDef claude fill:#fde2c4,stroke:#c2410c,color:#7c2d12
+  classDef other fill:#dcfce7,stroke:#15803d,color:#14532d
   classDef store fill:#f3f4f6,stroke:#6b7280,color:#374151
   class req,me human
-  class task,clone,plan,work,queue,qa,pr,review,merge,retro agent
+  class task,clone,plan,work,queue,qa,pr,review,merge,retro claude
+  class ext other
   class rules store
 </pre>
 
-<p><span style="background:#fde2c4;border:1px solid #c2410c;padding:0 0.4em">orange</span> is me, <span style="background:#dbeafe;border:1px solid #1d4ed8;padding:0 0.4em">blue</span> is done by AI agents, <span style="background:#f3f4f6;border:1px solid #6b7280;padding:0 0.4em">gray</span> is a repository.</p>
+<p><span style="background:#dbeafe;border:1px solid #1d4ed8;padding:0 0.4em">blue</span> is me, <span style="background:#fde2c4;border:1px solid #c2410c;padding:0 0.4em">orange</span> is Claude Code, <span style="background:#dcfce7;border:1px solid #15803d;padding:0 0.4em">green</span> is other AI agents, <span style="background:#f3f4f6;border:1px solid #6b7280;padding:0 0.4em">gray</span> is a repository.</p>
 
 ## One session, one scope
 
