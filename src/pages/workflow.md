@@ -14,10 +14,10 @@ flowchart TD
   req([Me, with a request]) --> task[Task on Kaneo board]
   task --> clone[Own clone via ccx]
   clone --> plan[Plan in markdown]
-  plan <-->|line comments| me([Me, in akapen])
+  plan <-->|line comments via MCP channel| me([Me, in akapen])
   plan --> work[Agent works]
   work -->|decision needed| queue[Decision queue in markdown]
-  queue <-->|line comments| me
+  queue <-->|line comments via MCP channel| me
   queue --> work
   work --> pr[Pull request]
   pr --> review[Adversarial + external reviews]
@@ -42,12 +42,18 @@ flowchart TD
 - Every session is attached to a task on a self-hosted [Kaneo](https://kaneo.app) board through [kaneo-cli](https://github.com/TakashiAihara/kaneo-cli), so I can see which session is working on what, and the next step is recorded before a session leaves.
 - When a session wraps up, follow-ups that outlive it become new tasks on the board instead of notes in the chat, so a later session can pick them up.
 
+## Sessions supported by ccx-agent
+
+- A resident [ccx-agent](https://github.com/TakashiAihara/ccx) runs on every machine, takes Claude Code hook events and forwards them to one ccx-center, so a single CLI lists every session on every machine.
+- It also stores live transcripts, so a finished session can be searched, or resumed on another machine.
+- Idle sessions I opt in are kept warm by the agent, so their prompt cache stays hot while they wait for my answer.
+
 ## Humans decide, agents keep moving
 
 - Reversible choices are made by the agent and reported afterwards.
 - Irreversible or outward-facing actions wait for my explicit approval.
 - When a decision is needed, the agent queues it in a markdown file and keeps working on whatever does not depend on it. I answer with line comments in [akapen](https://github.com/TakashiAihara/akapen), which feeds the comments back to the session.
-- Before implementing, the agent writes its plan as markdown and I comment on it line by line in akapen. The comments reach the running session, which revises the plan and replies, so I steer from inside the loop instead of rewriting prompts.
+- Before implementing, the agent writes its plan as markdown and I comment on it line by line in akapen. akapen is registered as a Claude Code MCP channel, so each comment is pushed into the running session the moment I write it. The session revises the plan and replies on the thread, so I steer from inside the loop instead of rewriting prompts.
 - Design discussions also happen in markdown reviewed line by line, not in a scrolling chat.
 
 ## Rules as code
