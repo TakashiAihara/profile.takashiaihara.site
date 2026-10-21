@@ -3,6 +3,7 @@ layout: ../layouts/BlogPost.astro
 title: How I Develop
 description: TakashiAihara's development workflow with parallel AI coding agents
 pubDate: 2026-10-15
+updatedDate: 2026-10-21
 ---
 
 I run many Claude Code sessions in parallel and keep myself in the loop only where a human decision matters. Most of the workflow below is backed by tools I built and publish on GitHub.
@@ -22,21 +23,26 @@ flowchart TD
   work -->|new decision| queue
   me -->|question| qa[Q&A document in markdown]
   qa -->|answer, line comments via MCP channel| me
-  work --> pr[Pull request]
-  pr --> review[Adversarial review]
+  work -.->|approval for irreversible actions| me
+  work --> verify[Verify: break the code on purpose, observe the effect]
+  verify --> pr[Pull request]
+  pr --> review[Adversarial review by Claude Fable]
   pr --> ext[External reviews: Antigravity, Copilot, Codex, CodeRabbit]
-  review --> merge[Merge]
-  ext --> merge
+  review --> myreview([Me, reviewing the PR])
+  ext --> myreview
+  myreview --> merge[Merge]
   merge --> retro[Retrospective]
-  retro -->|new rule / skill / tool| rules[(Rules repository)]
+  retro -->|proposals| fable[Proposal review by Claude Fable]
+  fable -->|adopted: new rule / skill / tool| rules[(Rules repository)]
+  rules <-.->|periodic cleanup| cleanup[Consolidate and prune rules]
   rules -.-> work
   retro -.->|follow-up tasks| task
   classDef human fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a
   classDef claude fill:#fde2c4,stroke:#c2410c,color:#7c2d12
   classDef other fill:#dcfce7,stroke:#15803d,color:#14532d
   classDef store fill:#f3f4f6,stroke:#6b7280,color:#374151
-  class req,me human
-  class task,clone,plan,work,queue,qa,pr,review,merge,retro claude
+  class req,me,myreview human
+  class task,clone,plan,work,verify,queue,qa,pr,review,merge,retro,fable,cleanup claude
   class ext other
   class rules store
 </pre>
@@ -76,12 +82,14 @@ flowchart TD
 
 - When a session's scope is done, it runs a retrospective before closing instead of just stopping.
 - The retrospective reads the session itself: my corrections, the comments I left in akapen, and the commands the agent actually ran.
-- What went wrong becomes a new rule, a skill or a tool, and what was tedious becomes a candidate for automation. A reviewer agent decides which proposals to adopt, and they are merged through pull requests.
+- What went wrong becomes a new rule, a skill or a tool, and what was tedious becomes a candidate for automation. A reviewer agent running on Claude Fable decides which proposals to adopt, and they are merged through pull requests.
+- Rules only help while they stay readable, so they are periodically consolidated and pruned: duplicates merged, outdated ones removed, and examples moved out of the always-loaded instructions.
 - The next session starts with the improved rules, so the development process itself improves one session at a time.
 
 ## Review and verification
 
-- Every pull request gets an adversarial review by a dedicated agent playing the strictest human reviewer, plus independent reviews from other model families (Antigravity, GitHub Copilot, Codex and others) and CodeRabbit.
+- Every pull request gets an adversarial review by a dedicated agent on Claude Fable playing the strictest human reviewer, plus independent reviews from other model families (Antigravity, GitHub Copilot, Codex and others) and CodeRabbit.
+- After the AI reviews are done, I review the pull request myself before it is merged.
 - Tests are checked with negative controls: the implementation is deliberately broken to confirm the test actually fails.
 - When acceptance tests can be written first, implementation is delegated to a smaller model, while the main agent keeps the spec, the tests and the acceptance check.
 - "Done" means the effect was observed, not that the code ran.
