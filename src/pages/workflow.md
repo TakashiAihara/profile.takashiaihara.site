@@ -13,9 +13,12 @@ I run many Claude Code sessions in parallel and keep myself in the loop only whe
 flowchart TD
   req[Request] --> task[Task on Kaneo board]
   task --> clone[Own clone via ccx]
-  clone --> work[Agent works]
+  clone --> plan[Plan in markdown]
+  plan <-->|line comments| me([Me, in akapen])
+  plan --> work[Agent works]
   work -->|decision needed| queue[Decision queue in markdown]
-  queue -->|line comments in akapen| work
+  queue <-->|line comments| me
+  queue --> work
   work --> pr[Pull request]
   pr --> review[Adversarial + external reviews]
   review --> merge[Merge]
@@ -36,6 +39,7 @@ flowchart TD
 - Reversible choices are made by the agent and reported afterwards.
 - Irreversible or outward-facing actions wait for my explicit approval.
 - When a decision is needed, the agent queues it in a markdown file and keeps working on whatever does not depend on it. I answer with line comments in [akapen](https://github.com/TakashiAihara/akapen), which feeds the comments back to the session.
+- Before implementing, the agent writes its plan as markdown and I comment on it line by line in akapen. The comments reach the running session, which revises the plan and replies, so I steer from inside the loop instead of rewriting prompts.
 - Design discussions also happen in markdown reviewed line by line, not in a scrolling chat.
 
 ## Rules as code
