@@ -11,7 +11,7 @@ I run many Claude Code sessions in parallel and keep myself in the loop only whe
 
 <pre class="mermaid">
 flowchart TD
-  req[Request] --> task[Task on Kaneo board]
+  req([Me, with a request]) --> task[Task on Kaneo board]
   task --> clone[Own clone via ccx]
   clone --> plan[Plan in markdown]
   plan <-->|line comments| me([Me, in akapen])
@@ -25,7 +25,15 @@ flowchart TD
   merge --> retro[Retrospective]
   retro -->|new rule / skill / tool| rules[(Rules repository)]
   rules -.-> work
+  classDef human fill:#fde2c4,stroke:#c2410c,color:#7c2d12
+  classDef agent fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a
+  classDef store fill:#f3f4f6,stroke:#6b7280,color:#374151
+  class req,me human
+  class task,clone,plan,work,queue,pr,review,merge,retro agent
+  class rules store
 </pre>
+
+<p><span style="background:#fde2c4;border:1px solid #c2410c;padding:0 0.4em">orange</span> is me, <span style="background:#dbeafe;border:1px solid #1d4ed8;padding:0 0.4em">blue</span> is done by AI agents, <span style="background:#f3f4f6;border:1px solid #6b7280;padding:0 0.4em">gray</span> is a repository.</p>
 
 ## One session, one scope
 
