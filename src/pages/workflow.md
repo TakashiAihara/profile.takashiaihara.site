@@ -14,11 +14,12 @@ flowchart TD
   req([Me, with a request]) --> task[Task on Kaneo board]
   task --> clone[Own clone via ccx]
   clone --> plan[Plan in markdown]
+  plan -->|extract decisions| queue[Decision queue in markdown]
   plan <-->|line comments via MCP channel| me([Me, in akapen])
+  queue <-->|answers via MCP channel| me
   plan --> work[Agent works]
-  work -->|decision needed| queue[Decision queue in markdown]
-  queue <-->|line comments via MCP channel| me
-  queue --> work
+  queue -->|decided| work
+  work -->|new decision| queue
   work --> pr[Pull request]
   pr --> review[Adversarial + external reviews]
   review --> merge[Merge]
@@ -52,8 +53,10 @@ flowchart TD
 
 - Reversible choices are made by the agent and reported afterwards.
 - Irreversible or outward-facing actions wait for my explicit approval.
-- When a decision is needed, the agent queues it in a markdown file and keeps working on whatever does not depend on it. I answer with line comments in [akapen](https://github.com/TakashiAihara/akapen), which feeds the comments back to the session.
-- Before implementing, the agent writes its plan as markdown and I comment on it line by line in akapen. akapen is registered as a Claude Code MCP channel, so each comment is pushed into the running session the moment I write it. The session revises the plan and replies on the thread, so I steer from inside the loop instead of rewriting prompts.
+- Before implementing, the agent writes its plan as markdown and extracts every point that needs my decision into a separate decision queue, so the plan stays a plan and the questions are in one place.
+- I review both in [akapen](https://github.com/TakashiAihara/akapen) with line comments: the plan for direction, the decision queue for answers.
+- akapen is registered as a Claude Code MCP channel, so each comment is pushed into the running session the moment I write it. The session revises the plan or applies the decision and replies on the thread, so I steer from inside the loop instead of rewriting prompts.
+- Decisions that come up during implementation go to the same queue, and the agent keeps working on whatever does not depend on them.
 - Design discussions also happen in markdown reviewed line by line, not in a scrolling chat.
 
 ## Rules as code
