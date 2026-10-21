@@ -30,6 +30,7 @@ flowchart TD
   merge --> retro[Retrospective]
   retro -->|new rule / skill / tool| rules[(Rules repository)]
   rules -.-> work
+  retro -.->|follow-up tasks| task
   classDef human fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a
   classDef claude fill:#fde2c4,stroke:#c2410c,color:#7c2d12
   classDef other fill:#dcfce7,stroke:#15803d,color:#14532d
