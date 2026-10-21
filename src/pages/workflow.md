@@ -50,7 +50,7 @@ flowchart TD
 
 ## Review and verification
 
-- Every pull request gets an adversarial review by a dedicated agent playing the strictest human reviewer, plus independent reviews from other model families and CodeRabbit.
+- Every pull request gets an adversarial review by a dedicated agent playing the strictest human reviewer, plus independent reviews from other model families (Antigravity, GitHub Copilot, Codex and others) and CodeRabbit.
 - Tests are checked with negative controls: the implementation is deliberately broken to confirm the test actually fails.
 - When acceptance tests can be written first, implementation is delegated to a smaller model, while the main agent keeps the spec, the tests and the acceptance check.
 - "Done" means the effect was observed, not that the code ran.
