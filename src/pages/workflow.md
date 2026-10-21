@@ -49,7 +49,7 @@ flowchart TD
   class rules store
 </pre>
 
-<p><span style="background:#dbeafe;border:1px solid #1d4ed8;padding:0 0.4em">blue</span> is me, <span style="background:#fde2c4;border:1px solid #c2410c;padding:0 0.4em">orange</span> is Claude (Claude Code and its subagents), <span style="background:#dcfce7;border:1px solid #15803d;padding:0 0.4em">green</span> is other AI agents, <span style="background:#f3f4f6;border:1px solid #6b7280;padding:0 0.4em">gray</span> is a repository.</p>
+<p><span style="background:#dbeafe;border:1px solid #1d4ed8;padding:0 0.4em">blue</span> is me, <span style="background:#fde2c4;border:1px solid #c2410c;padding:0 0.4em">orange</span> is Claude Code, its subagents and what they produce, <span style="background:#dcfce7;border:1px solid #15803d;padding:0 0.4em">green</span> is other AI agents, <span style="background:#f3f4f6;border:1px solid #6b7280;padding:0 0.4em">gray</span> is a repository.</p>
 
 ## One session, one scope
 
