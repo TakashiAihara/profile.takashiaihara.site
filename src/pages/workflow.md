@@ -46,7 +46,13 @@ flowchart TD
 
 - Agent behavior lives in a versioned repository: global instructions, task-specific skills, hooks that block known mistakes, and small CLIs.
 - Changes to those rules go through pull requests like any other code.
-- After each scope, the session runs a retrospective and turns what went wrong into a rule, a skill or a tool, so the same mistake is not repeated.
+
+## Every session ends with a retrospective
+
+- When a session's scope is done, it runs a retrospective before closing instead of just stopping.
+- The retrospective reads the session itself: my corrections, the comments I left in akapen, and the commands the agent actually ran.
+- What went wrong becomes a new rule, a skill or a tool, and what was tedious becomes a candidate for automation. A reviewer agent decides which proposals to adopt, and they are merged through pull requests.
+- The next session starts with the improved rules, so the development process itself improves one session at a time.
 
 ## Review and verification
 
