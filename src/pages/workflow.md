@@ -20,6 +20,8 @@ flowchart TD
   plan --> work[Agent works]
   queue -->|decided| work
   work -->|new decision| queue
+  me -->|question| qa[Q&A document in markdown]
+  qa -->|answer, line comments via MCP channel| me
   work --> pr[Pull request]
   pr --> review[Adversarial + external reviews]
   review --> merge[Merge]
@@ -30,7 +32,7 @@ flowchart TD
   classDef agent fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a
   classDef store fill:#f3f4f6,stroke:#6b7280,color:#374151
   class req,me human
-  class task,clone,plan,work,queue,pr,review,merge,retro agent
+  class task,clone,plan,work,queue,qa,pr,review,merge,retro agent
   class rules store
 </pre>
 
@@ -57,6 +59,7 @@ flowchart TD
 - I review both in [akapen](https://github.com/TakashiAihara/akapen) with line comments: the plan for direction, the decision queue for answers.
 - akapen is registered as a Claude Code MCP channel, so each comment is pushed into the running session the moment I write it. The session revises the plan or applies the decision and replies on the thread, so I steer from inside the loop instead of rewriting prompts.
 - Decisions that come up during implementation go to the same queue, and the agent keeps working on whatever does not depend on them.
+- When I ask a question, the answer goes into a Q&A document in markdown rather than the chat. Follow-ups are line comments on that document, so the answers stay readable later instead of scrolling away.
 - Design discussions also happen in markdown reviewed line by line, not in a scrolling chat.
 
 ## Rules as code
