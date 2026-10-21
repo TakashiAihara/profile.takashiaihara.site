@@ -1,9 +1,10 @@
 ---
 interface Props {
-  date: Date;
+  // markdown page frontmatter is not schema-validated, so dates arrive as strings
+  date: Date | string;
 }
 
-const { date } = Astro.props;
+const date = new Date(Astro.props.date);
 ---
 
 <time datetime={date.toISOString()}>
@@ -12,6 +13,7 @@ const { date } = Astro.props;
       year: "numeric",
       month: "short",
       day: "numeric",
+      timeZone: "Asia/Tokyo",
     })
   }
 </time>

@@ -69,6 +69,11 @@ export const HEADER_CONTENT_SETTINGS = [
     activeIcon: "bi:folder-fill",
   },
   {
+    name: "workflow",
+    icon: "ph:flow-arrow",
+    activeIcon: "ph:flow-arrow-fill",
+  },
+  {
     name: "blog",
     icon: "ph:book",
     activeIcon: "ph:book-fill",
@@ -132,4 +137,4 @@ export const BIO_SUMMARY_SETTINGS = [
   },
 ];
 
-export const CONTENTS = ["bio", "skills", "portfolio", "blog"] as const;
+export const CONTENTS = ["bio", "skills", "portfolio", "workflow", "blog"] as const;
