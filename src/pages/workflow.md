@@ -29,6 +29,7 @@ flowchart TD
 - Each agent session owns exactly one task and works in its own clone of the repository.
 - Clones are created by [ccx](https://github.com/TakashiAihara/ccx) as fully independent copies in under a second, so several sessions can check out the same branch without git worktrees.
 - Every session is attached to a task on a self-hosted [Kaneo](https://kaneo.app) board through [kaneo-cli](https://github.com/TakashiAihara/kaneo-cli), so I can see which session is working on what, and the next step is recorded before a session leaves.
+- When a session wraps up, follow-ups that outlive it become new tasks on the board instead of notes in the chat, so a later session can pick them up.
 
 ## Humans decide, agents keep moving
 
