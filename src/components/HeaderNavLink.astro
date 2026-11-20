@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { Icon } from "astro-icon";
+import { Icon } from "astro-icon/components";
 import { convertInitialUpperCase } from "../utils/convert";
 
 type Props = HTMLAttributes<"a"> & {
@@ -28,7 +28,8 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
   <div>
     <Icon
       name={isActive ? activeIcon : icon}
-      style="width: 30px; text-align: center"
+      size={30}
+      style="text-align: center"
     />
     <span>{name ? convertInitialUpperCase(name) : alt}</span>
   </div>
