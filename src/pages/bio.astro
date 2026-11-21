@@ -1,4 +1,5 @@
 ---
+import face from "../assets/anime_face.png";
 import BioSummary from "../components/BioSummary.astro";
 import { BIO_SUMMARY_SETTINGS } from "../consts";
 import Layout from "../layouts/BlogPost.astro";
@@ -12,7 +13,7 @@ import Layout from "../layouts/BlogPost.astro";
 >
   <h2>This page is work in progress. I'm sorry.</h2>
   <center>
-    <img src="/anime_face.png" width="200" />
+    <img src={face.src} width="200" />
   </center>
   <BioSummary withImage={false} summaries={BIO_SUMMARY_SETTINGS} />
 </Layout>

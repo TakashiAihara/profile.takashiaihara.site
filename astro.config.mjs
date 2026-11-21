@@ -1,24 +1,26 @@
-import image from "@astrojs/image";
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
+import sitemap from "@astrojs/sitemap";
+import icon from "astro-icon";
 import { defineConfig } from "astro/config";
-
-// sitemap integration is temporarily disabled because @astrojs/sitemap@2.0.2
-// passes an absolute destinationDir to sitemap@7.1.3 which rejects it.
-// Re-enable after the Astro upgrade in #13.
 
 // https://astro.build/config
 const siteDomain = process.env.SITE_DOMAIN || "profile.takashiaihara.site";
 
 export default defineConfig({
   site: `https://${siteDomain}`,
-  integrations: [mdx(),
-    image({
-      serviceEntryPoint: '@astrojs/image/sharp',
-    }),
+  // Keep Astro 2's zero-specificity scoping; component styles rely on it (e.g. div.face vs div > div).
+  scopedStyleStrategy: "where",
+  // Astro 2 kept whitespace between inline nodes; the text-then-emoji lines need that space.
+  compressHTML: false,
+  integrations: [
+    mdx(),
+    sitemap(),
+    icon(),
     partytown({
-    config: {
-      forward: ["dataLayer.push"]
-    }
-  })]
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+  ],
 });
