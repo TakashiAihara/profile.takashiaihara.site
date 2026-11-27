@@ -9,29 +9,19 @@ interface Props {
 }
 
 const { summaries } = Astro.props;
+const max = Math.max(...summaries.map(({ year }) => year));
 ---
 
-<div>
-  {
-    summaries.map(({ summary, year }) => (
-      <ul>
-        <li>{summary}</li>
-        <li>- {year} years</li>
-      </ul>
-    ))
-  }
-</div>
-
-<style>
-  div {
-    max-width: 500px;
-    margin-bottom: 2.5rem;
-  }
-
-  ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 0 5px 0;
-  }
-</style>
+<ul class="career-list">
+  {summaries.map(({ summary, year }) => (
+    <li class="career-item">
+      <strong>{summary}</strong>
+      <span class="years">
+        {year} {year === 1 ? "year" : "years"}
+      </span>
+      <span class="meter" aria-hidden="true">
+        <span style={`--bar: ${(year / max) * 100}%`} />
+      </span>
+    </li>
+  ))}
+</ul>

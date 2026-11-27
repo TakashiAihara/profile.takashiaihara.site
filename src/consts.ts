@@ -24,25 +24,21 @@ export const HEADER_SNS_SETTINGS = [
     name: "GitHub",
     url: GITHUB_URL,
     icon: "simple-icons:github",
-    color: "#181717",
   },
   {
     name: "Zenn",
     url: ZENN_URL,
     icon: "simple-icons:zenn",
-    color: "#3EA8FF",
   },
   {
     name: "Qiita",
     url: QIITA_URL,
     icon: "simple-icons:qiita",
-    color: "#55C500",
   },
   {
     name: "Twitter(X)",
     url: TWITTER_URL,
     icon: "bi:twitter",
-    color: "#1DA1F2",
   },
 ];
 

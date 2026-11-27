@@ -1,28 +1,15 @@
 ---
 import { ASTRO_REPOSITORY_URL, SITE_REPOSITORY_URL } from "../consts";
-
-const today = new Date();
 ---
 
-<footer>
-  <div>
+<footer class="site-footer">
+  <div class="shell footer-inner">
     <p>&copy; 2023, TakashiAihara</p>
-    <p>Built with <a href={ASTRO_REPOSITORY_URL}>Astro</a></p>
     <p>
-      Also, the source code of this site is in this <a
-        href={SITE_REPOSITORY_URL}>Repository</a>
+      Built with <a href={ASTRO_REPOSITORY_URL}>Astro</a>
+    </p>
+    <p>
+      <a href={SITE_REPOSITORY_URL}>Source repository</a>
     </p>
   </div>
 </footer>
-
-<style>
-  footer {
-    padding: 30px;
-    text-align: center;
-    font-size: small;
-
-    & p {
-      margin: 0 auto;
-    }
-  }
-</style>
