@@ -122,7 +122,8 @@ main {
   text-decoration: none;
   border-radius: var(--r-sm);
 }
-.nav a[aria-current] {
+.nav a[aria-current="page"],
+.nav a.section {
   color: var(--c-accent);
   background: var(--c-soft);
   font-weight: 700;
@@ -460,7 +461,8 @@ main {
   color: var(--c-muted);
 }
 
-@media (max-width: 900px) {
+/* The six nav items plus the brand and social icons need about 990px on one row. */
+@media (max-width: 1000px) {
   .head-inner {
     flex-wrap: wrap;
   }
@@ -469,6 +471,9 @@ main {
     width: 100%;
     justify-content: space-between;
   }
+}
+
+@media (max-width: 900px) {
   .home-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }

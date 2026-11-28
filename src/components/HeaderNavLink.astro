@@ -13,16 +13,21 @@ type Props = HTMLAttributes<"a"> & {
 const { icon, activeIcon, name, alt, href, ...props } = Astro.props;
 
 const { pathname } = Astro.url;
-// A section link (not Home) stays current on the pages under it, e.g. /blog on /blog/<post>/.
+// A section link (not Home) stays highlighted on the pages under it, e.g. /blog on /blog/<post>/;
+// only the exact page gets aria-current.
 const isPage = href === pathname || href === pathname.replace(/\/$/, "");
-const isActive = isPage || (!!name && pathname.startsWith(`${href}/`));
+const isSection = !isPage && href !== "/" && pathname.startsWith(`${href}/`);
 ---
 
 <a
   {href}
-  aria-current={isPage ? "page" : isActive ? "location" : undefined}
+  aria-current={isPage ? "page" : undefined}
+  class:list={{ section: isSection }}
   {...props}
 >
-  <Icon name={isActive && activeIcon ? activeIcon : icon} aria-hidden="true" />
+  <Icon
+    name={(isPage || isSection) && activeIcon ? activeIcon : icon}
+    aria-hidden="true"
+  />
   <span>{name ? convertInitialUpperCase(name) : alt}</span>
 </a>
