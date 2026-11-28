@@ -6,10 +6,12 @@ interface Summary {
 
 interface Props {
   summaries: Summary[];
+  // Pass a shared maximum when several lists sit side by side, so equal years draw equal bars.
+  max?: number;
 }
 
 const { summaries } = Astro.props;
-const max = Math.max(...summaries.map(({ year }) => year));
+const max = Astro.props.max ?? Math.max(...summaries.map(({ year }) => year));
 ---
 
 <ul class="career-list">

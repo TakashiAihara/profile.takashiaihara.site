@@ -14,6 +14,12 @@ import {
 import NestedSummary from "../components/NestedSummary.astro";
 import BioSummary from "../components/BioSummary.astro";
 import ClosingWords from "../components/ClosingWords.astro";
+
+const maxYears = Math.max(
+  ...[...IT_CARRIER_SUMMARY_SETTINGS, ...DANCER_CARRIER_SUMMARY_SETTINGS].map(
+    ({ year }) => year,
+  ),
+);
 ---
 
 <!doctype html>
@@ -42,14 +48,17 @@ import ClosingWords from "../components/ClosingWords.astro";
       </section>
       <section class="panel">
         <h2>IT Career Summary</h2>
-        <NestedSummary summaries={IT_CARRIER_SUMMARY_SETTINGS} />
+        <NestedSummary summaries={IT_CARRIER_SUMMARY_SETTINGS} max={maxYears} />
         <p class="career-note">
-          Bar length is relative to the longest listed role.
+          Both charts share one scale: the longest bar is the longest career.
         </p>
       </section>
       <section class="panel">
         <h2>Amateur Dancer Career Summary</h2>
-        <NestedSummary summaries={DANCER_CARRIER_SUMMARY_SETTINGS} />
+        <NestedSummary
+          summaries={DANCER_CARRIER_SUMMARY_SETTINGS}
+          max={maxYears}
+        />
       </section>
       <ClosingWords />
     </main>
