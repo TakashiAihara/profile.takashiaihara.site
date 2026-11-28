@@ -14,42 +14,23 @@ const sortDescByPubDateFunction = (
 const posts = (await getCollection("blog")).sort(sortDescByPubDateFunction);
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-  <Head title={SITE_TITLE} description={SITE_DESCRIPTION}>
-    <style>
-      ul {
-        list-style-type: none;
-        padding: unset;
-      }
-      ul li {
-        display: flex;
-      }
-      ul li :global(time) {
-        flex: 0 0 130px;
-        font-style: italic;
-        color: #595959;
-      }
-      ul li a:visited {
-        color: #8e32dc;
-      }
-    </style>
-  </Head>
+  <Head title={SITE_TITLE} description={SITE_DESCRIPTION} />
   <body>
     <Header />
-    <main>
-      <section>
-        <ul>
-          {
-            posts.map((post) => (
-              <li>
-                <FormattedDate date={post.data.pubDate} />
-                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
+    <main class="shell">
+      <header class="page-top">
+        <h1>Blog</h1>
+      </header>
+      <ul class="blog-list">
+        {posts.map((post) => (
+          <li>
+            <FormattedDate date={post.data.pubDate} />
+            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+          </li>
+        ))}
+      </ul>
     </main>
     <Footer />
   </body>

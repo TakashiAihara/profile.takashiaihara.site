@@ -10,46 +10,24 @@ type Props = HTMLAttributes<"a"> & {
   alt?: string;
 };
 
-const {
-  icon,
-  activeIcon,
-  name,
-  alt,
-  href,
-  class: className,
-  ...props
-} = Astro.props;
+const { icon, activeIcon, name, alt, href, ...props } = Astro.props;
 
 const { pathname } = Astro.url;
-const isActive = href === pathname || href === pathname.replace(/\/$/, "");
+// A section link (not Home) stays highlighted on the pages under it, e.g. /blog on /blog/<post>/;
+// only the exact page gets aria-current.
+const isPage = href === pathname || href === pathname.replace(/\/$/, "");
+const isSection = !isPage && href !== "/" && pathname.startsWith(`${href}/`);
 ---
 
-<a {href} class:list={[className, { active: isActive }]} {...props}>
-  <div>
-    <Icon
-      name={isActive ? activeIcon : icon}
-      size={30}
-      style="text-align: center"
-    />
-    <span>{name ? convertInitialUpperCase(name) : alt}</span>
-  </div>
+<a
+  {href}
+  aria-current={isPage ? "page" : undefined}
+  class:list={{ section: isSection }}
+  {...props}
+>
+  <Icon
+    name={(isPage || isSection) && activeIcon ? activeIcon : icon}
+    aria-hidden="true"
+  />
+  <span>{name ? convertInitialUpperCase(name) : alt}</span>
 </a>
-<style>
-  a {
-    display: inline-block;
-    text-decoration: none;
-  }
-  a.active {
-    font-weight: bolder;
-    text-decoration: underline;
-  }
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  span {
-    font-size: 8px;
-  }
-</style>

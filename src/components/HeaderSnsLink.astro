@@ -5,26 +5,18 @@ import { Icon } from "astro-icon/components";
 type Props = HTMLAttributes<"a"> & {
   icon: string;
   name: string;
-  color: string;
 };
 
-const { color, icon, name, href, class: className, ...props } = Astro.props;
+const { icon, name, href, ...props } = Astro.props;
 ---
 
-<a {href} target="_blank" {...props}>
-  <div>
-    <Icon
-      name={icon}
-      size={24}
-      style={`text-align: center; color: ${color}`}
-    />
-  </div>
+<a
+  {href}
+  target="_blank"
+  rel="noopener"
+  aria-label={name}
+  title={name}
+  {...props}
+>
+  <Icon name={icon} aria-hidden="true" />
 </a>
-<style>
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-</style>

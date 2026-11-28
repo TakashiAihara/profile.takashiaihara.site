@@ -1,55 +1,23 @@
 ---
-import {
-  SITE_TITLE,
-  HEADER_SNS_SETTINGS,
-  HEADER_CONTENT_SETTINGS,
-} from "../consts";
+import { HEADER_SNS_SETTINGS, HEADER_CONTENT_SETTINGS } from "../consts";
 import HeaderNavLink from "./HeaderNavLink.astro";
 import HeaderSnsLink from "./HeaderSnsLink.astro";
 ---
 
-<header>
-  <div>
-    {
-      HEADER_SNS_SETTINGS.map((setting) => {
-        const { url, name, icon, color } = setting;
-        return <HeaderSnsLink {color} {name} href={url} {icon} />;
-      })
-    }
+<header class="masthead">
+  <div class="shell head-inner">
+    <a class="brand" href="/">
+      Takashi Aihara
+    </a>
+    <nav class="nav" aria-label="Primary">
+      {HEADER_CONTENT_SETTINGS.map(({ name, icon, activeIcon, alt }) => (
+        <HeaderNavLink {name} {alt} href={`/${name}`} {icon} {activeIcon} />
+      ))}
+    </nav>
+    <div class="social">
+      {HEADER_SNS_SETTINGS.map(({ url, name, icon }) => (
+        <HeaderSnsLink {name} href={url} {icon} />
+      ))}
+    </div>
   </div>
-  <h2>
-    {SITE_TITLE}
-  </h2>
-  <nav>
-    {
-      HEADER_CONTENT_SETTINGS.map((setting) => {
-        const { name, icon, activeIcon, alt } = setting;
-        return (
-          <HeaderNavLink {name} {alt} href={`/${name}`} {icon} {activeIcon} />
-        );
-      })
-    }
-  </nav>
 </header>
-<style>
-  header {
-    margin: 0em 0 2em;
-  }
-  h2 {
-    margin: 0.5em 0;
-  }
-  nav {
-    display: flex;
-    justify-content: space-around;
-  }
-  a {
-    text-decoration: none;
-    color: #444;
-  }
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    gap: 1em;
-  }
-</style>
